@@ -1,6 +1,6 @@
 ﻿namespace Reversi
 {
-    partial class Form1
+    partial class Reversi
     {
         /// <summary>
         /// Required designer variable.
