@@ -18,11 +18,20 @@ namespace Reversi
         {
             InitializeComponent();
             board = new Board();
-            this.Paint += ReversiForm_Paint;
+            pictureBoxBoard.Paint += pictureBoxBoard_Paint;
         }
 
-        void ReversiForm_Paint(object sender, PaintEventArgs e)
+        void pictureBoxBoard_Paint(object sender, PaintEventArgs e)
         {
+            const int padding = 5;
+            int size = (e.ClipRectangle.Width - padding * 2) / board.Size;
+            for (int i = 0; i < board.Size; i++)
+            {
+                for (int j = 0; j < board.Size; j++)
+                {
+                    e.Graphics.DrawRectangle(Pens.Black, i * size + padding, j * size + padding, size, size);
+                }
+            }
         }
     }
 }
