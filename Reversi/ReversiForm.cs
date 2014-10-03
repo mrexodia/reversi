@@ -34,5 +34,10 @@ namespace Reversi
                 }
             }
         }
+
+        private void ReversiForm_ResizeEnd(object sender, EventArgs e)
+        {
+            pictureBoxBoard.Invalidate();
+        }
     }
 }
