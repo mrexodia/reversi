@@ -24,19 +24,19 @@ namespace Reversi
 
         void pictureBoxBoard_MouseMove(object sender, MouseEventArgs e)
         {
-            int w = pictureBoxBoard.Width / board.size;
-            int h = pictureBoxBoard.Height / board.size;
+            int w = pictureBoxBoard.Width / board.width;
+            int h = pictureBoxBoard.Height / board.height;
             this.Text = String.Format("{0},{1}", e.X / w, e.Y / h);
         }
 
         void pictureBoxBoard_Paint(object sender, PaintEventArgs e)
         {
-            int w = pictureBoxBoard.Width / board.size;
-            int h = pictureBoxBoard.Height / board.size;
+            int w = pictureBoxBoard.Width / board.width;
+            int h = pictureBoxBoard.Height / board.height;
 
-            for (int i = 0; i < board.size; i++)
+            for (int i = 0; i < board.width; i++)
             {
-                for (int j = 0; j < board.size; j++)
+                for (int j = 0; j < board.height; j++)
                 {
                     e.Graphics.DrawRectangle(Pens.Black, i * w, j * h, w, h);
                 }
