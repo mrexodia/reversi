@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.panelBoard = new System.Windows.Forms.Panel();
+            this.checkBoxHelp = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // panelBoard
@@ -38,11 +39,23 @@
             this.panelBoard.Size = new System.Drawing.Size(250, 250);
             this.panelBoard.TabIndex = 0;
             // 
+            // checkBoxHelp
+            // 
+            this.checkBoxHelp.AutoSize = true;
+            this.checkBoxHelp.Location = new System.Drawing.Point(214, 268);
+            this.checkBoxHelp.Name = "checkBoxHelp";
+            this.checkBoxHelp.Size = new System.Drawing.Size(48, 17);
+            this.checkBoxHelp.TabIndex = 1;
+            this.checkBoxHelp.Text = "&Help";
+            this.checkBoxHelp.UseVisualStyleBackColor = true;
+            this.checkBoxHelp.CheckedChanged += new System.EventHandler(this.checkBoxHelp_CheckedChanged);
+            // 
             // ReversiForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(273, 323);
+            this.Controls.Add(this.checkBoxHelp);
             this.Controls.Add(this.panelBoard);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
@@ -50,12 +63,14 @@
             this.Text = "Reversi";
             this.ResizeEnd += new System.EventHandler(this.ReversiForm_ResizeEnd);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
         private System.Windows.Forms.Panel panelBoard;
+        private System.Windows.Forms.CheckBox checkBoxHelp;
 
 
     }

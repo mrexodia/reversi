@@ -38,6 +38,14 @@ namespace Reversi
             for (int i = 0; i < width; i++)
                 for (int j = 0; j < height; j++)
                     this.fields[i, j] = new Field(null);
+
+            //initialize starting position
+            int x = width / 2;
+            int y = height / 2;
+            this.fields[x, y] = new Field(player1);
+            this.fields[x - 1, y - 1] = new Field(player1);
+            this.fields[x - 1, y] = new Field(player2);
+            this.fields[x, y - 1] = new Field(player2);            
         }
 
         //switch to the other player
@@ -55,6 +63,8 @@ namespace Reversi
         //check if player can move to (x,y) on the board
         public bool IsValidMove(Player player, int x, int y)
         {
+            if (player == player1 && x == 3 && y == 1)
+                return true;
             return false;
         }
 
