@@ -43,6 +43,7 @@
             this.pictureBoxBoard.Size = new System.Drawing.Size(788, 704);
             this.pictureBoxBoard.TabIndex = 0;
             this.pictureBoxBoard.TabStop = false;
+            this.pictureBoxBoard.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBoxBoard_Paint);
             // 
             // ReversiForm
             // 

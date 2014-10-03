@@ -18,7 +18,6 @@ namespace Reversi
         {
             InitializeComponent();
             board = new Board();
-            pictureBoxBoard.Paint += pictureBoxBoard_Paint;
         }
 
         void pictureBoxBoard_Paint(object sender, PaintEventArgs e)
