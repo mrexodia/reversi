@@ -9,7 +9,7 @@ namespace Reversi
     class Board
     {
         private int FieldSize { get; set; }
-        private Field[,] Fields;
+        public Field[,] Fields { get; }
 
         public Board(int fieldSize = 6)
         {
