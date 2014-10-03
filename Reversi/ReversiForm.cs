@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace Reversi
 {
-    public partial class Reversi : Form
+    public partial class ReversiForm : Form
     {
-        public Reversi()
+        public ReversiForm()
         {
             InitializeComponent();
         }
