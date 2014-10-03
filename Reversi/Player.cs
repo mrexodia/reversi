@@ -9,13 +9,13 @@ namespace Reversi
 {
     class Player
     {
+        public string name { get; private set; }
+        public Color color { get; private set; }
+
         public Player(string name, Color color)
         {
             this.name = name;
             this.color = color;
         }
-
-        public string name { get; private set; }
-        public Color color { get; private set; }
     }
 }
