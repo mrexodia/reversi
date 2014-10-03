@@ -37,9 +37,10 @@
             this.pictureBoxBoard.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBoxBoard.Location = new System.Drawing.Point(0, 87);
+            this.pictureBoxBoard.Location = new System.Drawing.Point(2, 87);
+            this.pictureBoxBoard.Margin = new System.Windows.Forms.Padding(0);
             this.pictureBoxBoard.Name = "pictureBoxBoard";
-            this.pictureBoxBoard.Size = new System.Drawing.Size(347, 366);
+            this.pictureBoxBoard.Size = new System.Drawing.Size(337, 366);
             this.pictureBoxBoard.TabIndex = 0;
             this.pictureBoxBoard.TabStop = false;
             this.pictureBoxBoard.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBoxBoard_Paint);
@@ -48,10 +49,10 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(347, 385);
+            this.ClientSize = new System.Drawing.Size(337, 385);
             this.Controls.Add(this.pictureBoxBoard);
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(363, 424);
+            this.MinimumSize = new System.Drawing.Size(353, 424);
             this.Name = "ReversiForm";
             this.Text = "Reversi";
             this.ResizeEnd += new System.EventHandler(this.ReversiForm_ResizeEnd);
