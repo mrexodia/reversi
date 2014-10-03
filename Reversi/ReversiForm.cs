@@ -28,8 +28,8 @@ namespace Reversi
         {
             int w = panelBoard.Width / board.width;
             int h = panelBoard.Height / board.height;
-            testX = Math.Min(e.X / w, board.width);
-            testY = Math.Min(e.Y / h, board.height);
+            testX = Math.Min(e.X / w, board.width - 1);
+            testY = Math.Min(e.Y / h, board.height - 1);
             panelBoard.Invalidate();
         }
 
