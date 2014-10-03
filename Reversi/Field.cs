@@ -15,5 +15,10 @@ namespace Reversi
         {
             this.owner = owner;
         }
+
+        public bool IsEmpty()
+        {
+            return owner == null;
+        }
     }
 }

@@ -18,6 +18,10 @@ namespace Reversi
             this.width = width;
             this.height = height;
             this.fields = new Field[width, height];
+            //initialize empty fields
+            for (int i = 0; i < width; i++)
+                for (int j = 0; j < height; j++)
+                    this.fields[i, j] = new Field(null);
         }
     }
 }
