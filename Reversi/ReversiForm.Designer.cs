@@ -34,7 +34,6 @@
             // 
             // pictureBoxBoard
             // 
-            this.pictureBoxBoard.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBoxBoard.Location = new System.Drawing.Point(29, 35);
             this.pictureBoxBoard.Name = "pictureBoxBoard";
             this.pictureBoxBoard.Size = new System.Drawing.Size(200, 200);

@@ -23,13 +23,14 @@ namespace Reversi
 
         void pictureBoxBoard_Paint(object sender, PaintEventArgs e)
         {
-            const int padding = 5;
-            int size = (e.ClipRectangle.Width - padding * 2) / board.Size;
+            int w = e.ClipRectangle.Width / board.Size;
+            int h = e.ClipRectangle.Height / board.Size;
+
             for (int i = 0; i < board.Size; i++)
             {
                 for (int j = 0; j < board.Size; j++)
                 {
-                    e.Graphics.DrawRectangle(Pens.Black, i * size + padding, j * size + padding, size, size);
+                    e.Graphics.DrawRectangle(Pens.Black, i * w, j * h, w, h);
                 }
             }
         }
