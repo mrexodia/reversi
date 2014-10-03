@@ -12,27 +12,64 @@ namespace Reversi
         public int width { get; private set; }
         public int height { get; private set; }
         public Field[,] fields { get; private set; }
+        public Player curPlayer { get; private set; }
+
+        private Player player1;
+        private Player player2;
 
         public Board(int width, int height, Player player1, Player player2)
         {
+            //check minimal board size
             if (width < 3)
                 width = 3;
             if (height < 3)
                 height = 3;
+
+            //initialize properties
             this.width = width;
             this.height = height;
             this.fields = new Field[width, height];
+            this.player1 = player1;
+            this.player2 = player2;
+
+            this.curPlayer = player1; //player1 begins
+
             //initialize empty fields
             for (int i = 0; i < width; i++)
                 for (int j = 0; j < height; j++)
                     this.fields[i, j] = new Field(null);
         }
 
-        //return true = repaint
+        //switch to the other player
+        private void switchPlayer()
+        {
+            curPlayer = curPlayer == player1 ? player2 : player1;
+        }
+
+        //return if (x,y) is valid on the boards
+        public bool IsInBounds(int x, int y)
+        {
+            return x > 0 && x <= width && y > 0 && y <= height;
+        }
+
+        //check if player can move to (x,y) on the board
+        public bool IsValidMove(Player player, int x, int y)
+        {
+            return false;
+        }
+
+        //player clicked on a field
         public bool FieldClicked(int x, int y)
         {
-            if (x >= width || y >= height) //out of bounds
+            if (!IsInBounds(x, y))
                 return false;
+
+            if (!IsValidMove(curPlayer, x, y))
+                return false;
+
+            //handle the valid move
+            fields[x, y] = new Field(curPlayer);
+            switchPlayer();
             return true;
         }
     }

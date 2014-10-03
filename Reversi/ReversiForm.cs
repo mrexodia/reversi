@@ -22,6 +22,7 @@ namespace Reversi
             InitializeComponent();
             DoubleBuffered = true;
             
+            //register events
             panelBoard.Paint += pictureBoxBoard_Paint;
             panelBoard.MouseClick += panelBoard_MouseClick;
 
