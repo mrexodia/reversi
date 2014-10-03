@@ -44,6 +44,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Board.cs" />
+    <Compile Include="Field.cs" />
+    <Compile Include="Player.cs" />
     <Compile Include="Reversi.cs">
       <SubType>Form</SubType>
     </Compile>
