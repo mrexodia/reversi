@@ -17,6 +17,6 @@ namespace Reversi
             InitializeComponent();
         }
 
-        // Hoi
+        // Hoi2
     }
 }
