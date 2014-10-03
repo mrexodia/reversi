@@ -14,30 +14,29 @@ namespace Reversi
     {
         Board board;
         int testX = 0, testY = 0;
+        Player player1;
+        Player player2;
 
         public ReversiForm()
         {
             InitializeComponent();
-            board = new Board(6, 6);
+            DoubleBuffered = true;
+            
             panelBoard.Paint += pictureBoxBoard_Paint;
-            panelBoard.MouseMove += pictureBoxBoard_MouseMove;
             panelBoard.MouseClick += panelBoard_MouseClick;
+
+            //initialize variables
+            player1 = new Player("Mario", Color.Red);
+            player2 = new Player("Link", Color.Green);
+            board = new Board(6, 6, player1, player2);
         }
 
         void panelBoard_MouseClick(object sender, MouseEventArgs e)
         {
             int w = panelBoard.Width / board.width;
             int h = panelBoard.Height / board.height;
-            testX = Math.Min(e.X / w, board.width - 1);
-            testY = Math.Min(e.Y / h, board.height - 1);
-            panelBoard.Invalidate();
-        }
-
-        void pictureBoxBoard_MouseMove(object sender, MouseEventArgs e)
-        {
-            int w = panelBoard.Width / board.width;
-            int h = panelBoard.Height / board.height;
-            this.Text = String.Format("{0},{1}", e.X / w, e.Y / h);
+            if (board.FieldClicked(e.X / w, e.Y / h))
+                panelBoard.Invalidate();
         }
 
         void pictureBoxBoard_Paint(object sender, PaintEventArgs e)
