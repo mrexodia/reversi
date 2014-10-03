@@ -18,21 +18,21 @@ namespace Reversi
         {
             InitializeComponent();
             board = new Board();
-            pictureBoxBoard.Paint += pictureBoxBoard_Paint;
-            pictureBoxBoard.MouseMove += pictureBoxBoard_MouseMove;
+            panelBoard.Paint += pictureBoxBoard_Paint;
+            panelBoard.MouseMove += pictureBoxBoard_MouseMove;
         }
 
         void pictureBoxBoard_MouseMove(object sender, MouseEventArgs e)
         {
-            int w = pictureBoxBoard.Width / board.width;
-            int h = pictureBoxBoard.Height / board.height;
+            int w = panelBoard.Width / board.width;
+            int h = panelBoard.Height / board.height;
             this.Text = String.Format("{0},{1}", e.X / w, e.Y / h);
         }
 
         void pictureBoxBoard_Paint(object sender, PaintEventArgs e)
         {
-            int w = pictureBoxBoard.Width / board.width;
-            int h = pictureBoxBoard.Height / board.height;
+            int w = panelBoard.Width / board.width;
+            int h = panelBoard.Height / board.height;
 
             for (int i = 0; i < board.width; i++)
             {
@@ -45,7 +45,7 @@ namespace Reversi
 
         private void ReversiForm_ResizeEnd(object sender, EventArgs e)
         {
-            pictureBoxBoard.Invalidate();
+            panelBoard.Invalidate();
         }
     }
 }

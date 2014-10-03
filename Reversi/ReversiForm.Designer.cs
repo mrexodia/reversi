@@ -28,36 +28,34 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.pictureBoxBoard = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxBoard)).BeginInit();
+            this.panelBoard = new System.Windows.Forms.Panel();
             this.SuspendLayout();
             // 
-            // pictureBoxBoard
+            // panelBoard
             // 
-            this.pictureBoxBoard.Location = new System.Drawing.Point(12, 12);
-            this.pictureBoxBoard.Name = "pictureBoxBoard";
-            this.pictureBoxBoard.Size = new System.Drawing.Size(250, 250);
-            this.pictureBoxBoard.TabIndex = 0;
-            this.pictureBoxBoard.TabStop = false;
+            this.panelBoard.Location = new System.Drawing.Point(12, 12);
+            this.panelBoard.Name = "panelBoard";
+            this.panelBoard.Size = new System.Drawing.Size(250, 250);
+            this.panelBoard.TabIndex = 0;
             // 
             // ReversiForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(273, 323);
-            this.Controls.Add(this.pictureBoxBoard);
+            this.Controls.Add(this.panelBoard);
             this.MaximizeBox = false;
             this.Name = "ReversiForm";
             this.Text = "Reversi";
             this.ResizeEnd += new System.EventHandler(this.ReversiForm_ResizeEnd);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxBoard)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.PictureBox pictureBoxBoard;
+        private System.Windows.Forms.Panel panelBoard;
+
 
     }
 }
