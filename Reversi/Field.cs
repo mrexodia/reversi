@@ -11,7 +11,6 @@ namespace Reversi
         public enum State
         {
             Empty,
-            Semi,
             Full
         }
 
