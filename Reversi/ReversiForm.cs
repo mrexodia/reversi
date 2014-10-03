@@ -13,9 +13,6 @@ namespace Reversi
     public partial class ReversiForm : Form
     {
         Board board;
-        int testX = 0, testY = 0;
-        Player player1 = new Player("Sonic", Color.Blue);
-        Player player2 = new Player("Mario", Color.Red);
 
         public ReversiForm()
         {
@@ -27,7 +24,7 @@ namespace Reversi
             panelBoard.MouseClick += panelBoard_MouseClick;
 
             //initialize board
-            board = new Board(6, 6, player1, player2);
+            board = new Board(6, 6, new Player("Sonic", Color.Blue), new Player("Mario", Color.Red));
         }
 
         void panelBoard_MouseClick(object sender, MouseEventArgs e)
@@ -62,10 +59,10 @@ namespace Reversi
                         continue; //skip drawing help
 
                     //draw help
-                    if (board.IsValidMove(player1, i, j))
-                        e.Graphics.DrawEllipse(new Pen(player1.color), x + w / 4 + pad * 2, y + h / 4 + pad * 2, w / 2 - pad * 2, h / 2 - pad * 2);
-                    if (board.IsValidMove(player2, i, j))
-                        e.Graphics.DrawEllipse(new Pen(player2.color), x + w / 4 + pad * 2, y + h / 4 + pad * 2, w / 2 - pad * 2, h / 2 - pad * 2);
+                    if (board.IsValidMove(board.player1, i, j))
+                        e.Graphics.DrawEllipse(new Pen(board.player1.color), x + w / 4 + pad * 2, y + h / 4 + pad * 2, w / 2 - pad * 2, h / 2 - pad * 2);
+                    if (board.IsValidMove(board.player2, i, j))
+                        e.Graphics.DrawEllipse(new Pen(board.player2.color), x + w / 4 + pad * 2, y + h / 4 + pad * 2, w / 2 - pad * 2, h / 2 - pad * 2);
                 }
             }
         }

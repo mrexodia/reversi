@@ -11,7 +11,7 @@ namespace Reversi
         //owner == null means empty field
         public Player owner { get; private set; }
 
-        public Field(Player owner)
+        public Field(Player owner = null)
         {
             this.owner = owner;
         }

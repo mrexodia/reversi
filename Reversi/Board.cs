@@ -12,10 +12,9 @@ namespace Reversi
         public int width { get; private set; }
         public int height { get; private set; }
         public Field[,] fields { get; private set; }
+        public Player player1 { get; set; }
+        public Player player2 { get; set; }
         public Player curPlayer { get; private set; }
-
-        private Player player1;
-        private Player player2;
 
         public Board(int width, int height, Player player1, Player player2)
         {
@@ -37,7 +36,7 @@ namespace Reversi
             //initialize empty fields
             for (int i = 0; i < width; i++)
                 for (int j = 0; j < height; j++)
-                    this.fields[i, j] = new Field(null);
+                    this.fields[i, j] = new Field();
 
             //initialize starting position
             int x = width / 2;
@@ -45,7 +44,7 @@ namespace Reversi
             this.fields[x, y] = new Field(player1);
             this.fields[x - 1, y - 1] = new Field(player1);
             this.fields[x - 1, y] = new Field(player2);
-            this.fields[x, y - 1] = new Field(player2);            
+            this.fields[x, y - 1] = new Field(player2);
         }
 
         //switch to the other player
