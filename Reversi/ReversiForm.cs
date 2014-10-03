@@ -12,9 +12,17 @@ namespace Reversi
 {
     public partial class ReversiForm : Form
     {
+        Board board;
+
         public ReversiForm()
         {
             InitializeComponent();
+            board = new Board();
+            this.Paint += ReversiForm_Paint;
+        }
+
+        void ReversiForm_Paint(object sender, PaintEventArgs e)
+        {
         }
     }
 }
