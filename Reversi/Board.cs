@@ -30,7 +30,6 @@ namespace Reversi
             this.fields = new Field[width, height];
             this.player1 = player1;
             this.player2 = player2;
-
             this.curPlayer = player1; //player1 begins
 
             //initialize empty fields
@@ -62,8 +61,6 @@ namespace Reversi
         //check if player can move to (x,y) on the board
         public bool IsValidMove(Player player, int x, int y)
         {
-            if (player == player1 && x == 3 && y == 1)
-                return true;
             return false;
         }
 
