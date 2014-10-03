@@ -8,13 +8,7 @@ namespace Reversi
 {
     class Field
     {
-        public enum State
-        {
-            Empty,
-            Full
-        }
-
-        public State state { get; set; }
+        //owner == null means empty field
         public Player owner { get; private set; }
 
         public Field(Player owner)
