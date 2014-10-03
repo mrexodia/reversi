@@ -13,13 +13,24 @@ namespace Reversi
     public partial class ReversiForm : Form
     {
         Board board;
+        int testX = 0, testY = 0;
 
         public ReversiForm()
         {
             InitializeComponent();
-            board = new Board();
+            board = new Board(6, 6);
             panelBoard.Paint += pictureBoxBoard_Paint;
             panelBoard.MouseMove += pictureBoxBoard_MouseMove;
+            panelBoard.MouseClick += panelBoard_MouseClick;
+        }
+
+        void panelBoard_MouseClick(object sender, MouseEventArgs e)
+        {
+            int w = panelBoard.Width / board.width;
+            int h = panelBoard.Height / board.height;
+            testX = Math.Min(e.X / w, board.width);
+            testY = Math.Min(e.Y / h, board.height);
+            panelBoard.Invalidate();
         }
 
         void pictureBoxBoard_MouseMove(object sender, MouseEventArgs e)
@@ -38,7 +49,11 @@ namespace Reversi
             {
                 for (int j = 0; j < board.height; j++)
                 {
-                    e.Graphics.DrawRectangle(Pens.Black, i * w, j * h, w, h);
+                    int x = i * w;
+                    int y = j * h;
+                    e.Graphics.DrawRectangle(Pens.Black, x, y, w, h);
+                    if (i == testX && j == testY)
+                        e.Graphics.FillEllipse(Brushes.Red, x + 1, y + 1, w - 2, h - 2);
                 }
             }
         }

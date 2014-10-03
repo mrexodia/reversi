@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 
 namespace Reversi
 {
@@ -12,7 +13,7 @@ namespace Reversi
         public int height { get; private set; }
         public Field[,] fields { get; private set; }
 
-        public Board(int width = 6, int height = 6)
+        public Board(int width, int height)
         {
             this.width = width;
             this.height = height;
