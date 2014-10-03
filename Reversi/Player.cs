@@ -9,8 +9,7 @@ namespace Reversi
 {
     class Player
     {
-        public string Name { get; set; }
-
-        public Color Color { get; set; }
+        public string name { get; set; }
+        public Color color { get; set; }
     }
 }

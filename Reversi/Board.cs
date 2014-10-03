@@ -8,13 +8,13 @@ namespace Reversi
 {
     class Board
     {
-        public int Size { get; private set; }
-        public Field[,] Fields { get; private set; }
+        public int size { get; private set; }
+        public Field[,] fields { get; private set; }
 
-        public Board(int fieldSize = 6)
+        public Board(int size = 6)
         {
-            this.Size = fieldSize;
-            this.Fields = new Field[Size, Size];
+            this.size = size;
+            this.fields = new Field[size, size];
         }
     }
 }

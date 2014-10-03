@@ -8,13 +8,19 @@ namespace Reversi
 {
     class Field
     {
-        enum State
+        public enum State
         {
             Empty,
             Semi,
             Full
         }
 
-        public Player Owner { get; set; }
+        public State state { get; set; }
+        public Player owner { get; private set; }
+
+        public Field(Player owner)
+        {
+            this.owner = owner;
+        }
     }
 }
