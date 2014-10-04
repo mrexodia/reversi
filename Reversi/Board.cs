@@ -34,8 +34,10 @@ namespace Reversi
 
             //initialize empty fields
             for (int i = 0; i < width; i++)
+            {
                 for (int j = 0; j < height; j++)
                     this.fields[i, j] = new Field();
+            }
 
             //initialize starting position
             int x = width / 2;
@@ -46,11 +48,13 @@ namespace Reversi
             this.fields[x, y - 1] = new Field(player2);
         }
 
+        //purely to satisfy the ICloneable interface
         object ICloneable.Clone()
         {
             return this.Clone();
         }
 
+        //provides a clone functionality
         public Board Clone()
         {
             Board retBoard = (Board)this.MemberwiseClone();
@@ -75,16 +79,20 @@ namespace Reversi
         {
             if (!IsInBounds(x, y))
                 return false;
+
             return fields[x, y].owner == player;
         }
 
-        //returns true if there is a field at the direction given by dx and dy
+        //returns true if there is a field of the same color at the direction given by dx and dy (empty field on the way = false)
         private bool isFieldAt(Player player, int x, int y, int dx, int dy)
         {
             if ((dx == 0 && dy == 0) || !IsInBounds(x, y) || fields[x, y].IsEmpty())
                 return false;
+
             if (fields[x, y].owner == player)
                 return true;
+
+            //walk 'forward' in the direction given
             return isFieldAt(player, x + dx, y + dy, dx, dy);
         }
 
@@ -92,14 +100,14 @@ namespace Reversi
         private void tileMoved(Player player, int x, int y)
         {
             for (int i = -1; i < 2; i++) //go over all directions
+            {
                 for (int j = -1; j < 2; j++)
                 {
-                    if (i == 0 && j == 0) //skip current field
-                        continue;
+                    //own fields while there is a field of ours in the current direction
                     for (int xi = x, yi = y, dx = i, dy = j; isFieldAt(player, xi, yi, dx, dy); xi += dx, yi += dy)
-                        if (isOwnedByPlayer(otherPlayer(player), xi, yi))
-                            fields[xi, yi] = new Field(player);
+                        fields[xi, yi] = new Field(player);
                 }
+            }
         }
 
         //return if (x,y) is valid on the boards
@@ -115,13 +123,14 @@ namespace Reversi
                 return false;
 
             for (int i = -1; i < 2; i++) //go over all directions
+            {
                 for (int j = -1; j < 2; j++)
                 {
-                    if (i == 0 && j == 0) //skip current field
-                        continue;
+                    //valid move = [ ][1][2] (2 can jump to empty field)
                     if (isOwnedByPlayer(otherPlayer(player), x + i, y + j) && isOwnedByPlayer(player, x + i * 2, y + j * 2))
                         return true;
                 }
+            }
 
             return false;
         }
@@ -142,13 +151,18 @@ namespace Reversi
             return true;
         }
 
+        //get the number of fields owned by player
         public int GetPlayerScore(Player player)
         {
             int score = 0;
             for (int i = 0; i < width; i++)
+            {
                 for (int j = 0; j < height; j++)
+                {
                     if (isOwnedByPlayer(player, i, j))
                         score++;
+                }
+            }
             return score;
         }
     }
