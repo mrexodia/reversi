@@ -102,30 +102,14 @@ namespace Reversi
             if (!fields[x, y].IsEmpty())
                 return false;
 
-            //right
-            if (isOwnedByPlayer(otherPlayer(player), x + 1, y) && isOwnedByPlayer(player, x + 2, y))
-                return true;
-            //lower-right
-            if (isOwnedByPlayer(otherPlayer(player), x + 1, y + 1) && isOwnedByPlayer(player, x + 2, y + 2))
-                return true;
-            //down
-            if (isOwnedByPlayer(otherPlayer(player), x, y + 1) && isOwnedByPlayer(player, x, y + 2))
-                return true;
-            //lower-left
-            if (isOwnedByPlayer(otherPlayer(player), x - 1, y + 1) && isOwnedByPlayer(player, x - 2, y + 2))
-                return true;
-            //left
-            if (isOwnedByPlayer(otherPlayer(player), x - 1, y) && isOwnedByPlayer(player, x - 2, y))
-                return true;
-            //upper-left
-            if (isOwnedByPlayer(otherPlayer(player), x - 1, y - 1) && isOwnedByPlayer(player, x - 2, y - 2))
-                return true;
-            //up
-            if (isOwnedByPlayer(otherPlayer(player), x, y - 1) && isOwnedByPlayer(player, x, y - 2))
-                return true;
-            //upper-right
-            if (isOwnedByPlayer(otherPlayer(player), x + 1, y - 1) && isOwnedByPlayer(player, x + 2, y - 2))
-                return true;
+            for (int i = -1; i < 2; i++) //go over all directions
+                for (int j = -1; j < 2; j++)
+                {
+                    if (i == 0 && j == 0) //skip current field
+                        continue;
+                    if (isOwnedByPlayer(otherPlayer(player), x + i, y + j) && isOwnedByPlayer(player, x + i * 2, y + j * 2))
+                        return true;
+                }
 
             return false;
         }
