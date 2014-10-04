@@ -13,6 +13,8 @@ namespace Reversi
     public partial class ReversiForm : Form
     {
         Board board;
+        Board oldboard = null;
+        bool displayOldBoard = false;
 
         public ReversiForm()
         {
@@ -21,19 +23,13 @@ namespace Reversi
 
             //initialize board
             board = new Board(6, 6, new Player("Sonic", Color.Blue), new Player("Mario", Color.Red));
-            updateScores();
+            updateScores(board);
 
             //register events
             panelBoard.Paint += pictureBoxBoard_Paint;
             panelBoard.MouseClick += panelBoard_MouseClick;
-        }
-
-        void panelBoard_MouseClick(object sender, MouseEventArgs e)
-        {
-            int w = panelBoard.Width / board.width;
-            int h = panelBoard.Height / board.height;
-            if (board.FieldClicked(e.X / w, e.Y / h))
-                panelBoard.Invalidate();
+            panelBoard.MouseDown += panelBoard_MouseDown;
+            panelBoard.MouseUp += panelBoard_MouseUp;
         }
 
         void drawBoard(Graphics g, Board board)
@@ -66,7 +62,7 @@ namespace Reversi
             }
         }
 
-        void updateScores()
+        void updateScores(Board board)
         {
             labelPlayer1.Text = String.Format("{0}: {1}", board.player1.name, board.GetPlayerScore(board.player1));
             labelPlayer1.ForeColor = board.player1.color;
@@ -76,10 +72,52 @@ namespace Reversi
             labelGameStatus.ForeColor = board.curPlayer.color;
         }
 
+        void panelBoard_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                displayOldBoard = false;
+                panelBoard.Invalidate();
+            }
+        }
+
+        void panelBoard_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                displayOldBoard = true;
+                panelBoard.Invalidate();
+            }
+        }
+
+        void panelBoard_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                int w = panelBoard.Width / board.width;
+                int h = panelBoard.Height / board.height;
+                Board old = board.Clone();
+                if (board.FieldClicked(e.X / w, e.Y / h))
+                {
+                    oldboard = old;
+                    panelBoard.Invalidate();
+                }
+            }
+        }
+
         void pictureBoxBoard_Paint(object sender, PaintEventArgs e)
         {
-            updateScores();
-            drawBoard(e.Graphics, board);
+            if (displayOldBoard && oldboard != null)
+            {
+                updateScores(oldboard);
+                drawBoard(e.Graphics, oldboard);
+            }
+            else
+            {
+                updateScores(board);
+                drawBoard(e.Graphics, board);
+            }
+
         }
 
         private void checkBoxHelp_CheckedChanged(object sender, EventArgs e)
