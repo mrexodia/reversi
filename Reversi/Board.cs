@@ -7,7 +7,7 @@ using System.Drawing;
 
 namespace Reversi
 {
-    class Board
+    class Board : ICloneable
     {
         public int width { get; private set; }
         public int height { get; private set; }
@@ -44,6 +44,18 @@ namespace Reversi
             this.fields[x - 1, y - 1] = new Field(player1);
             this.fields[x - 1, y] = new Field(player2);
             this.fields[x, y - 1] = new Field(player2);
+        }
+
+        object ICloneable.Clone()
+        {
+            return this.Clone();
+        }
+
+        public Board Clone()
+        {
+            Board retBoard = (Board)this.MemberwiseClone();
+            retBoard.fields = (Field[,])this.fields.Clone();
+            return retBoard;
         }
 
         //returns the other player
