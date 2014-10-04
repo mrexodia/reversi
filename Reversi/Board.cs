@@ -16,6 +16,14 @@ namespace Reversi
         public Player player2 { get; set; }
         public Player curPlayer { get; private set; }
 
+        public enum ClickStatus
+        {
+            InvalidMove,
+            PlayerSwitched,
+            PlayerAgain,
+            GameOver
+        };
+
         public Board(int width, int height, Player player1, Player player2)
         {
             //check minimal board size
@@ -69,9 +77,10 @@ namespace Reversi
         }
 
         //switch to the other player
-        private void switchPlayer()
+        private ClickStatus switchPlayer()
         {
             curPlayer = otherPlayer(curPlayer);
+            return ClickStatus.PlayerSwitched;
         }
 
         //returns if a field is owned by a player
@@ -136,19 +145,18 @@ namespace Reversi
         }
 
         //player clicked on a field
-        public bool FieldClicked(int x, int y)
+        public ClickStatus FieldClicked(int x, int y)
         {
             if (!IsInBounds(x, y))
-                return false;
+                return ClickStatus.InvalidMove;
 
             if (!IsValidMove(curPlayer, x, y))
-                return false;
+                return ClickStatus.InvalidMove;
 
             //handle the valid move
             fields[x, y] = new Field(curPlayer);
             tileMoved(curPlayer, x, y);
-            switchPlayer();
-            return true;
+            return switchPlayer();
         }
 
         //get the number of fields owned by player

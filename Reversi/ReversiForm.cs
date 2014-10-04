@@ -97,7 +97,7 @@ namespace Reversi
                 int w = panelBoard.Width / board.width;
                 int h = panelBoard.Height / board.height;
                 Board old = board.Clone();
-                if (board.FieldClicked(e.X / w, e.Y / h))
+                if (board.FieldClicked(e.X / w, e.Y / h) != Board.ClickStatus.InvalidMove)
                 {
                     oldboard = old;
                     panelBoard.Invalidate();
