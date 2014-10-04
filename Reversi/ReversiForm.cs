@@ -35,7 +35,7 @@ namespace Reversi
                 panelBoard.Invalidate();
         }
 
-        void pictureBoxBoard_Paint(object sender, PaintEventArgs e)
+        void drawBoard(Graphics g, Board board)
         {
             int w = panelBoard.Width / board.width;
             int h = panelBoard.Height / board.height;
@@ -49,22 +49,25 @@ namespace Reversi
                     int y = j * h;
 
                     //draw grid
-                    e.Graphics.DrawRectangle(Pens.Black, x, y, w, h);
+                    g.DrawRectangle(Pens.Black, x, y, w, h);
 
                     //draw player
                     if (!board.fields[i, j].IsEmpty())
-                        e.Graphics.FillEllipse(new SolidBrush(board.fields[i, j].owner.color), x + pad, y + pad, w - pad * 2, h - pad * 2);
+                        g.FillEllipse(new SolidBrush(board.fields[i, j].owner.color), x + pad, y + pad, w - pad * 2, h - pad * 2);
 
                     if (!checkBoxHelp.Checked)
                         continue; //skip drawing help
 
                     //draw help
-                    if (board.IsValidMove(board.player1, i, j))
-                        e.Graphics.DrawEllipse(new Pen(board.player1.color), x + w / 4 + pad * 2, y + h / 4 + pad * 2, w / 2 - pad * 2, h / 2 - pad * 2);
-                    if (board.IsValidMove(board.player2, i, j))
-                        e.Graphics.DrawEllipse(new Pen(board.player2.color), x + w / 4 + pad * 2, y + h / 4 + pad * 2, w / 2 - pad * 2, h / 2 - pad * 2);
+                    if (board.IsValidMove(board.curPlayer, i, j))
+                        g.DrawEllipse(new Pen(board.curPlayer.color), x + w / 4 + pad * 2, y + h / 4 + pad * 2, w / 2 - pad * 2, h / 2 - pad * 2);
                 }
             }
+        }
+
+        void pictureBoxBoard_Paint(object sender, PaintEventArgs e)
+        {
+            drawBoard(e.Graphics, board);
         }
 
         private void ReversiForm_ResizeEnd(object sender, EventArgs e)
