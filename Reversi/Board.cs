@@ -69,7 +69,7 @@ namespace Reversi
         //returns true if there is a field at the direction given by dx and dy
         private bool isFieldAt(Player player, int x, int y, int dx, int dy)
         {
-            if ((dx == 0 && dy == 0) || !IsInBounds(x, y))
+            if ((dx == 0 && dy == 0) || !IsInBounds(x, y) || fields[x, y].IsEmpty())
                 return false;
             if (fields[x, y].owner == player)
                 return true;
@@ -79,22 +79,38 @@ namespace Reversi
         //a tile 'moved' to (x,y) from (?,?) => recolor fields
         private void tileMoved(Player player, int x, int y)
         {
-            for (int i = 0; isFieldAt(player, x + i, y, 1, 0); i++) //right
-                fields[x + i, y] = new Field(player);
-            for (int i = 0; isFieldAt(player, x + i, y + i, 1, 1); i++) //lower-right
-                fields[x + i, y + i] = new Field(player);
-            for (int i = 0; isFieldAt(player, x, y + i, 0, 1); i++) //down
-                fields[x, y + i] = new Field(player);
-            for (int i = 0; isFieldAt(player, x - i, y + i, -1, 1); i++) //lower-left
-                fields[x - i, y + i] = new Field(player);
-            for (int i = 0; isFieldAt(player, x - i, y, -1, 0); i++) //left
-                fields[x - i, y] = new Field(player);
-            for (int i = 0; isFieldAt(player, x - i, y - i, -1, -1); i++) //upper-left
-                fields[x - i, y - i] = new Field(player);
-            for (int i = 0; isFieldAt(player, x, y - i, 0, -1); i++) //up
-                fields[x, y - i] = new Field(player);
-            for (int i = 0; isFieldAt(player, x + i, y - i, 1, -1); i++) //upper-right
-                fields[x + i, y - i] = new Field(player);
+            //right
+            for (int xi=x, yi=y, dx=1, dy=0; isFieldAt(player, xi, yi, dx, dy); xi+=dx, yi+=dy)
+                if (isOwnedByPlayer(otherPlayer(player), xi, yi))
+                    fields[xi, yi] = new Field(player);
+            //lower-right
+            for (int xi=x, yi=y, dx=1, dy=1; isFieldAt(player, xi, yi, dx, dy); xi+=dx, yi+=dy)
+                if (isOwnedByPlayer(otherPlayer(player), xi, yi))
+                    fields[xi, yi] = new Field(player);
+            //down
+            for (int xi=x, yi=y, dx=0, dy=1; isFieldAt(player, xi, yi, dx, dy); xi+=dx, yi+=dy)
+                if (isOwnedByPlayer(otherPlayer(player), xi, yi))
+                    fields[xi, yi] = new Field(player);
+            //lower-left
+            for (int xi=x, yi=y, dx=-1, dy=1; isFieldAt(player, xi, yi, dx, dy); xi+=dx, yi+=dy)
+                if (isOwnedByPlayer(otherPlayer(player), xi, yi))
+                    fields[xi, yi] = new Field(player);
+            //left
+            for (int xi=x, yi=y, dx=-1, dy=0; isFieldAt(player, xi, yi, dx, dy); xi+=dx, yi+=dy)
+                if (isOwnedByPlayer(otherPlayer(player), xi, yi))
+                    fields[xi, yi] = new Field(player);
+            //upper-left
+            for (int xi=x, yi=y, dx=-1, dy=-1; isFieldAt(player, xi, yi, dx, dy); xi+=dx, yi+=dy)
+                if (isOwnedByPlayer(otherPlayer(player), xi, yi))
+                    fields[xi, yi] = new Field(player);
+            //up
+            for (int xi=x, yi=y, dx=0, dy=-1; isFieldAt(player, xi, yi, dx, dy); xi+=dx, yi+=dy)
+                if (isOwnedByPlayer(otherPlayer(player), xi, yi))
+                    fields[xi, yi] = new Field(player);
+            //upper-right
+            for (int xi=x, yi=y, dx=1, dy=-1; isFieldAt(player, xi, yi, dx, dy); xi+=dx, yi+=dy)
+                if (isOwnedByPlayer(otherPlayer(player), xi, yi))
+                    fields[xi, yi] = new Field(player);
         }
 
         //return if (x,y) is valid on the boards
@@ -109,21 +125,29 @@ namespace Reversi
             if (!fields[x, y].IsEmpty())
                 return false;
 
-            if (isOwnedByPlayer(otherPlayer(player), x + 1, y) && isOwnedByPlayer(player, x + 2, y)) //right
+            //right
+            if (isOwnedByPlayer(otherPlayer(player), x + 1, y) && isOwnedByPlayer(player, x + 2, y))
                 return true;
-            if (isOwnedByPlayer(otherPlayer(player), x + 1, y + 1) && isOwnedByPlayer(player, x + 2, y + 2)) //lower-right
+            //lower-right
+            if (isOwnedByPlayer(otherPlayer(player), x + 1, y + 1) && isOwnedByPlayer(player, x + 2, y + 2))
                 return true;
-            if (isOwnedByPlayer(otherPlayer(player), x, y + 1) && isOwnedByPlayer(player, x, y + 2)) //down
+            //down
+            if (isOwnedByPlayer(otherPlayer(player), x, y + 1) && isOwnedByPlayer(player, x, y + 2))
                 return true;
-            if (isOwnedByPlayer(otherPlayer(player), x - 1, y + 1) && isOwnedByPlayer(player, x - 2, y + 2)) //lower-left
+            //lower-left
+            if (isOwnedByPlayer(otherPlayer(player), x - 1, y + 1) && isOwnedByPlayer(player, x - 2, y + 2))
                 return true;
-            if (isOwnedByPlayer(otherPlayer(player), x - 1, y) && isOwnedByPlayer(player, x - 2, y)) //left
+            //left
+            if (isOwnedByPlayer(otherPlayer(player), x - 1, y) && isOwnedByPlayer(player, x - 2, y))
                 return true;
-            if (isOwnedByPlayer(otherPlayer(player), x - 1, y - 1) && isOwnedByPlayer(player, x - 2, y - 2)) //upper-left
+            //upper-left
+            if (isOwnedByPlayer(otherPlayer(player), x - 1, y - 1) && isOwnedByPlayer(player, x - 2, y - 2))
                 return true;
-            if (isOwnedByPlayer(otherPlayer(player), x, y - 1) && isOwnedByPlayer(player, x, y - 2)) //up
+            //up
+            if (isOwnedByPlayer(otherPlayer(player), x, y - 1) && isOwnedByPlayer(player, x, y - 2))
                 return true;
-            if (isOwnedByPlayer(otherPlayer(player), x + 1, y - 1) && isOwnedByPlayer(player, x + 2, y - 2)) //upper-right
+            //upper-right
+            if (isOwnedByPlayer(otherPlayer(player), x + 1, y - 1) && isOwnedByPlayer(player, x + 2, y - 2))
                 return true;
 
             return false;
