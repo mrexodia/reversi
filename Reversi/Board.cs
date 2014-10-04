@@ -79,38 +79,15 @@ namespace Reversi
         //a tile 'moved' to (x,y) from (?,?) => recolor fields
         private void tileMoved(Player player, int x, int y)
         {
-            //right
-            for (int xi=x, yi=y, dx=1, dy=0; isFieldAt(player, xi, yi, dx, dy); xi+=dx, yi+=dy)
-                if (isOwnedByPlayer(otherPlayer(player), xi, yi))
-                    fields[xi, yi] = new Field(player);
-            //lower-right
-            for (int xi=x, yi=y, dx=1, dy=1; isFieldAt(player, xi, yi, dx, dy); xi+=dx, yi+=dy)
-                if (isOwnedByPlayer(otherPlayer(player), xi, yi))
-                    fields[xi, yi] = new Field(player);
-            //down
-            for (int xi=x, yi=y, dx=0, dy=1; isFieldAt(player, xi, yi, dx, dy); xi+=dx, yi+=dy)
-                if (isOwnedByPlayer(otherPlayer(player), xi, yi))
-                    fields[xi, yi] = new Field(player);
-            //lower-left
-            for (int xi=x, yi=y, dx=-1, dy=1; isFieldAt(player, xi, yi, dx, dy); xi+=dx, yi+=dy)
-                if (isOwnedByPlayer(otherPlayer(player), xi, yi))
-                    fields[xi, yi] = new Field(player);
-            //left
-            for (int xi=x, yi=y, dx=-1, dy=0; isFieldAt(player, xi, yi, dx, dy); xi+=dx, yi+=dy)
-                if (isOwnedByPlayer(otherPlayer(player), xi, yi))
-                    fields[xi, yi] = new Field(player);
-            //upper-left
-            for (int xi=x, yi=y, dx=-1, dy=-1; isFieldAt(player, xi, yi, dx, dy); xi+=dx, yi+=dy)
-                if (isOwnedByPlayer(otherPlayer(player), xi, yi))
-                    fields[xi, yi] = new Field(player);
-            //up
-            for (int xi=x, yi=y, dx=0, dy=-1; isFieldAt(player, xi, yi, dx, dy); xi+=dx, yi+=dy)
-                if (isOwnedByPlayer(otherPlayer(player), xi, yi))
-                    fields[xi, yi] = new Field(player);
-            //upper-right
-            for (int xi=x, yi=y, dx=1, dy=-1; isFieldAt(player, xi, yi, dx, dy); xi+=dx, yi+=dy)
-                if (isOwnedByPlayer(otherPlayer(player), xi, yi))
-                    fields[xi, yi] = new Field(player);
+            for (int i = -1; i < 2; i++) //go over all directions
+                for (int j = -1; j < 2; j++)
+                {
+                    if (i == 0 && j == 0) //skip current field
+                        continue;
+                    for (int xi = x, yi = y, dx = i, dy = j; isFieldAt(player, xi, yi, dx, dy); xi += dx, yi += dy)
+                        if (isOwnedByPlayer(otherPlayer(player), xi, yi))
+                            fields[xi, yi] = new Field(player);
+                }
         }
 
         //return if (x,y) is valid on the boards
