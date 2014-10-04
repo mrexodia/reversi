@@ -33,6 +33,7 @@
             this.labelPlayer1 = new System.Windows.Forms.Label();
             this.labelPlayer2 = new System.Windows.Forms.Label();
             this.labelGameStatus = new System.Windows.Forms.Label();
+            this.buttonNew = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // panelBoard
@@ -81,11 +82,22 @@
             this.labelGameStatus.TabIndex = 4;
             this.labelGameStatus.Text = "labelGameStatus";
             // 
+            // buttonNew
+            // 
+            this.buttonNew.Location = new System.Drawing.Point(214, 292);
+            this.buttonNew.Name = "buttonNew";
+            this.buttonNew.Size = new System.Drawing.Size(47, 23);
+            this.buttonNew.TabIndex = 5;
+            this.buttonNew.Text = "&New";
+            this.buttonNew.UseVisualStyleBackColor = true;
+            this.buttonNew.Click += new System.EventHandler(this.buttonNew_Click);
+            // 
             // ReversiForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(273, 323);
+            this.Controls.Add(this.buttonNew);
             this.Controls.Add(this.labelGameStatus);
             this.Controls.Add(this.labelPlayer2);
             this.Controls.Add(this.labelPlayer1);
@@ -107,6 +119,7 @@
         private System.Windows.Forms.Label labelPlayer1;
         private System.Windows.Forms.Label labelPlayer2;
         private System.Windows.Forms.Label labelGameStatus;
+        private System.Windows.Forms.Button buttonNew;
 
 
     }

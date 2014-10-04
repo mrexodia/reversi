@@ -19,8 +19,7 @@ namespace Reversi
         public enum ClickStatus
         {
             InvalidMove,
-            PlayerSwitched,
-            PlayerAgain,
+            ValidMove,
             GameOver
         };
 
@@ -56,31 +55,35 @@ namespace Reversi
             this.fields[x, y - 1] = new Field(player2);
         }
 
-        //purely to satisfy the ICloneable interface
-        object ICloneable.Clone()
-        {
-            return this.Clone();
-        }
-
-        //provides a clone functionality
-        public Board Clone()
-        {
-            Board retBoard = (Board)this.MemberwiseClone();
-            retBoard.fields = (Field[,])this.fields.Clone();
-            return retBoard;
-        }
-
         //returns the other player
         private Player otherPlayer(Player player)
         {
             return player == player1 ? player2 : player1;
         }
 
-        //switch to the other player
-        private ClickStatus switchPlayer()
+        //returns if player can make a valid move
+        private bool isMovePossible(Player player)
         {
+            for (int i = 0; i < width; i++)
+            {
+                for (int j = 0; j < height; j++)
+                {
+                    if (IsValidMove(player, i, j))
+                        return true;
+                }
+            }
+            return false;
+        }
+
+        //switch to the other player
+        private ClickStatus switchPlayer(int count = 0)
+        {
+            if (count == 2)
+                return ClickStatus.GameOver;
             curPlayer = otherPlayer(curPlayer);
-            return ClickStatus.PlayerSwitched;
+            if (!isMovePossible(curPlayer))
+                return switchPlayer(count + 1);
+            return ClickStatus.ValidMove;
         }
 
         //returns if a field is owned by a player
@@ -117,6 +120,20 @@ namespace Reversi
                         fields[xi, yi] = new Field(player);
                 }
             }
+        }
+
+        //purely to satisfy the ICloneable interface
+        object ICloneable.Clone()
+        {
+            return this.Clone();
+        }
+
+        //provides a clone functionality
+        public Board Clone()
+        {
+            Board retBoard = (Board)this.MemberwiseClone();
+            retBoard.fields = (Field[,])this.fields.Clone();
+            return retBoard;
         }
 
         //return if (x,y) is valid on the boards

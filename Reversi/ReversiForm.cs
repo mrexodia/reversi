@@ -13,23 +13,32 @@ namespace Reversi
     public partial class ReversiForm : Form
     {
         Board board;
-        Board oldboard = null;
-        bool displayOldBoard = false;
+        Board oldboard;
+        bool displayOldBoard;
+        bool gameOver;
 
         public ReversiForm()
         {
             InitializeComponent();
             DoubleBuffered = true;
 
-            //initialize board
-            board = new Board(6, 6, new Player("Sonic", Color.Blue), new Player("Mario", Color.Red));
-            updateScores(board);
+            //start new game
+            newGame();
 
             //register events
             panelBoard.Paint += pictureBoxBoard_Paint;
             panelBoard.MouseClick += panelBoard_MouseClick;
             panelBoard.MouseDown += panelBoard_MouseDown;
             panelBoard.MouseUp += panelBoard_MouseUp;
+        }
+
+        void newGame()
+        {
+            board = new Board(4, 4, new Player("Sonic", Color.Blue), new Player("Mario", Color.Red));
+            oldboard = null;
+            displayOldBoard = false;
+            gameOver = false;
+            updateScores(board);
         }
 
         void drawBoard(Graphics g, Board board)
@@ -68,8 +77,32 @@ namespace Reversi
             labelPlayer1.ForeColor = board.player1.color;
             labelPlayer2.Text = String.Format("{0}: {1}", board.player2.name, board.GetPlayerScore(board.player2));
             labelPlayer2.ForeColor = board.player2.color;
-            labelGameStatus.Text = String.Format("It is {0}'s turn.", board.curPlayer.name);
-            labelGameStatus.ForeColor = board.curPlayer.color;
+
+            if (gameOver)
+            {
+                int score1 = board.GetPlayerScore(board.player1);
+                int score2 = board.GetPlayerScore(board.player2);
+                if (score1 > score2) //player1 wins
+                {
+                    labelGameStatus.Text = String.Format("{0} won!", board.player1.name);
+                    labelGameStatus.ForeColor = board.player1.color;
+                }
+                else if (score2 > score1) //player2 wins
+                {
+                    labelGameStatus.Text = String.Format("{0} won!", board.player2.name);
+                    labelGameStatus.ForeColor = board.player2.color;
+                }
+                else //draw
+                {
+                    labelGameStatus.Text = "It's a draw...";
+                    labelGameStatus.ForeColor = Color.Black;
+                }
+            }
+            else
+            {
+                labelGameStatus.Text = String.Format("It is {0}'s turn.", board.curPlayer.name);
+                labelGameStatus.ForeColor = board.curPlayer.color;
+            }
         }
 
         void panelBoard_MouseUp(object sender, MouseEventArgs e)
@@ -97,10 +130,21 @@ namespace Reversi
                 int w = panelBoard.Width / board.width;
                 int h = panelBoard.Height / board.height;
                 Board old = board.Clone();
-                if (board.FieldClicked(e.X / w, e.Y / h) != Board.ClickStatus.InvalidMove)
+                switch (board.FieldClicked(e.X / w, e.Y / h))
                 {
-                    oldboard = old;
-                    panelBoard.Invalidate();
+                    case Board.ClickStatus.ValidMove:
+                        oldboard = old;
+                        panelBoard.Invalidate();
+                        break;
+
+                    case Board.ClickStatus.GameOver:
+                        gameOver = true;
+                        oldboard = old;
+                        panelBoard.Invalidate();
+                        break;
+
+                    default:
+                        break;
                 }
             }
         }
@@ -122,6 +166,12 @@ namespace Reversi
 
         private void checkBoxHelp_CheckedChanged(object sender, EventArgs e)
         {
+            panelBoard.Invalidate();
+        }
+
+        private void buttonNew_Click(object sender, EventArgs e)
+        {
+            newGame();
             panelBoard.Invalidate();
         }
     }
