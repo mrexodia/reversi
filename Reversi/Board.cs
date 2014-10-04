@@ -129,5 +129,15 @@ namespace Reversi
             switchPlayer();
             return true;
         }
+
+        public int GetPlayerScore(Player player)
+        {
+            int score = 0;
+            for (int i = 0; i < width; i++)
+                for (int j = 0; j < height; j++)
+                    if (isOwnedByPlayer(player, i, j))
+                        score++;
+            return score;
+        }
     }
 }

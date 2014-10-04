@@ -19,12 +19,13 @@ namespace Reversi
             InitializeComponent();
             DoubleBuffered = true;
 
+            //initialize board
+            board = new Board(6, 6, new Player("Sonic", Color.Blue), new Player("Mario", Color.Red));
+            updateScores();
+
             //register events
             panelBoard.Paint += pictureBoxBoard_Paint;
             panelBoard.MouseClick += panelBoard_MouseClick;
-
-            //initialize board
-            board = new Board(6, 6, new Player("Sonic", Color.Blue), new Player("Mario", Color.Red));
         }
 
         void panelBoard_MouseClick(object sender, MouseEventArgs e)
@@ -65,14 +66,20 @@ namespace Reversi
             }
         }
 
-        void pictureBoxBoard_Paint(object sender, PaintEventArgs e)
+        void updateScores()
         {
-            drawBoard(e.Graphics, board);
+            labelPlayer1.Text = String.Format("{0}: {1}", board.player1.name, board.GetPlayerScore(board.player1));
+            labelPlayer1.ForeColor = board.player1.color;
+            labelPlayer2.Text = String.Format("{0}: {1}", board.player2.name, board.GetPlayerScore(board.player2));
+            labelPlayer2.ForeColor = board.player2.color;
+            labelGameStatus.Text = String.Format("It is {0}'s turn.", board.curPlayer.name);
+            labelGameStatus.ForeColor = board.curPlayer.color;
         }
 
-        private void ReversiForm_ResizeEnd(object sender, EventArgs e)
+        void pictureBoxBoard_Paint(object sender, PaintEventArgs e)
         {
-            panelBoard.Invalidate();
+            updateScores();
+            drawBoard(e.Graphics, board);
         }
 
         private void checkBoxHelp_CheckedChanged(object sender, EventArgs e)
