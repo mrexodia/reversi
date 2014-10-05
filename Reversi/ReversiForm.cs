@@ -34,7 +34,7 @@ namespace Reversi
 
         void newGame()
         {
-            board = new Board(20, 20, new Player("Sonic", Color.Blue), new Player("Mario", Color.Red));
+            board = new Board(6, 6, new Player("Sonic", Color.Blue), new Player("Mario", Color.Red));
             oldboard = null;
             displayOldBoard = false;
             gameOver = false;
@@ -46,9 +46,9 @@ namespace Reversi
         {
             Bitmap bitmap = new Bitmap(panelBoard.Width, panelBoard.Height);
             Graphics g = Graphics.FromImage(bitmap);
-            int w = panelBoard.Width / board.width;
-            int h = panelBoard.Height / board.height;
-            const int pad = 1;
+            int w = (panelBoard.Width - 1) / board.width;
+            int h = (panelBoard.Height - 1) / board.height;
+            const int pad = 3;
 
             for (int i = 0; i < board.width; i++)
             {
@@ -69,7 +69,7 @@ namespace Reversi
 
                     //draw help
                     if (board.IsValidMove(board.curPlayer, i, j))
-                        g.DrawEllipse(new Pen(board.curPlayer.color), x + w / 4 + pad * 2, y + h / 4 + pad * 2, w / 2 - pad * 2, h / 2 - pad * 2);
+                        g.DrawEllipse(new Pen(board.curPlayer.color), x + w / 4 + pad + 1, y + h / 4 + pad + 1, w / 2 - pad * 2, h / 2 - pad * 2);
                 }
             }
 
@@ -146,25 +146,24 @@ namespace Reversi
         {
             if (e.Button == MouseButtons.Left)
             {
-                int w = panelBoard.Width / board.width;
-                int h = panelBoard.Height / board.height;
+                int w = (panelBoard.Width - 1) / board.width;
+                int h = (panelBoard.Height - 1) / board.height;
                 Board old = board.Clone();
                 switch (board.FieldClicked(e.X / w, e.Y / h))
                 {
                     case Board.ClickStatus.ValidMove:
                         oldboard = old;
-                        redraw();
                         break;
 
                     case Board.ClickStatus.GameOver:
                         gameOver = true;
                         oldboard = old;
-                        redraw();
                         break;
 
                     default:
                         break;
                 }
+                redraw();
             }
         }
 
@@ -181,7 +180,6 @@ namespace Reversi
         private void buttonNew_Click(object sender, EventArgs e)
         {
             newGame();
-            redraw();
         }
     }
 }
