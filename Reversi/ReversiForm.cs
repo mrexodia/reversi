@@ -34,7 +34,7 @@ namespace Reversi
 
         void newGame()
         {
-            board = new Board(4, 4, new Player("Sonic", Color.Blue), new Player("Mario", Color.Red));
+            board = new Board(6, 6, new Player("Sonic", Color.Blue), new Player("Mario", Color.Red));
             oldboard = null;
             displayOldBoard = false;
             gameOver = false;
@@ -153,7 +153,6 @@ namespace Reversi
         {
             if (displayOldBoard && oldboard != null)
             {
-                updateScores(oldboard);
                 drawBoard(e.Graphics, oldboard);
             }
             else

@@ -152,8 +152,12 @@ namespace Reversi
             {
                 for (int j = -1; j < 2; j++)
                 {
-                    //valid move = [ ][1][2] (2 can jump to empty field)
-                    if (isOwnedByPlayer(otherPlayer(player), x + i, y + j) && isOwnedByPlayer(player, x + i * 2, y + j * 2))
+                    int k = 1;
+                    while (isOwnedByPlayer(otherPlayer(player), x + i * k, y + j * k))
+                        k++;
+                    if (k == 1) //skip if the first field in the current direction is not owned by the other player
+                        continue;
+                    if (isOwnedByPlayer(player, x + i * k, y + j * k))
                         return true;
                 }
             }
