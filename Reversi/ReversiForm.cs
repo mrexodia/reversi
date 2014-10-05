@@ -14,13 +14,13 @@ namespace Reversi
     {
         Board board;
         Board oldboard;
+        Bitmap boardImage;
         bool displayOldBoard;
         bool gameOver;
 
         public ReversiForm()
         {
             InitializeComponent();
-            DoubleBuffered = true;
 
             //start new game
             newGame();
@@ -34,15 +34,18 @@ namespace Reversi
 
         void newGame()
         {
-            board = new Board(6, 6, new Player("Sonic", Color.Blue), new Player("Mario", Color.Red));
+            board = new Board(20, 20, new Player("Sonic", Color.Blue), new Player("Mario", Color.Red));
             oldboard = null;
             displayOldBoard = false;
             gameOver = false;
             updateScores(board);
+            redraw();
         }
 
-        void drawBoard(Graphics g, Board board)
+        Bitmap drawBoard(Board board)
         {
+            Bitmap bitmap = new Bitmap(panelBoard.Width, panelBoard.Height);
+            Graphics g = Graphics.FromImage(bitmap);
             int w = panelBoard.Width / board.width;
             int h = panelBoard.Height / board.height;
             const int pad = 1;
@@ -69,6 +72,8 @@ namespace Reversi
                         g.DrawEllipse(new Pen(board.curPlayer.color), x + w / 4 + pad * 2, y + h / 4 + pad * 2, w / 2 - pad * 2, h / 2 - pad * 2);
                 }
             }
+
+            return bitmap;
         }
 
         void updateScores(Board board)
@@ -105,12 +110,26 @@ namespace Reversi
             }
         }
 
+        void redraw()
+        {
+            if (displayOldBoard && oldboard != null)
+            {
+                boardImage = drawBoard(oldboard);
+            }
+            else
+            {
+                updateScores(board);
+                boardImage = drawBoard(board);
+            }
+            panelBoard.Invalidate();
+        }
+
         void panelBoard_MouseUp(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right)
             {
                 displayOldBoard = false;
-                panelBoard.Invalidate();
+                redraw();
             }
         }
 
@@ -119,7 +138,7 @@ namespace Reversi
             if (e.Button == MouseButtons.Right)
             {
                 displayOldBoard = true;
-                panelBoard.Invalidate();
+                redraw();
             }
         }
 
@@ -134,13 +153,13 @@ namespace Reversi
                 {
                     case Board.ClickStatus.ValidMove:
                         oldboard = old;
-                        panelBoard.Invalidate();
+                        redraw();
                         break;
 
                     case Board.ClickStatus.GameOver:
                         gameOver = true;
                         oldboard = old;
-                        panelBoard.Invalidate();
+                        redraw();
                         break;
 
                     default:
@@ -151,27 +170,18 @@ namespace Reversi
 
         void pictureBoxBoard_Paint(object sender, PaintEventArgs e)
         {
-            if (displayOldBoard && oldboard != null)
-            {
-                drawBoard(e.Graphics, oldboard);
-            }
-            else
-            {
-                updateScores(board);
-                drawBoard(e.Graphics, board);
-            }
-
+            e.Graphics.DrawImage(boardImage, 0, 0);
         }
 
         private void checkBoxHelp_CheckedChanged(object sender, EventArgs e)
         {
-            panelBoard.Invalidate();
+            redraw();
         }
 
         private void buttonNew_Click(object sender, EventArgs e)
         {
             newGame();
-            panelBoard.Invalidate();
+            redraw();
         }
     }
 }
