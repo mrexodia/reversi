@@ -121,6 +121,10 @@ namespace Reversi
                 updateScores(board);
                 boardImage = drawBoard(board);
             }
+
+            // Triggers the form to redraw the panel, which
+            // acquires the board bitmap and puts it on the
+            // screen.
             panelBoard.Invalidate();
         }
 
