@@ -64,12 +64,12 @@ namespace Reversi
                     if (!board.fields[i, j].IsEmpty())
                         g.FillEllipse(new SolidBrush(board.fields[i, j].owner.color), x + pad, y + pad, w - pad * 2, h - pad * 2);
 
-                    if (!checkBoxHelp.Checked)
-                        continue; //skip drawing help
-
-                    //draw help
-                    if (board.IsValidMove(board.curPlayer, i, j))
-                        g.DrawEllipse(new Pen(board.curPlayer.color), x + w / 4 + pad + 1, y + h / 4 + pad + 1, w / 2 - pad * 2, h / 2 - pad * 2);
+                    if (checkBoxHelp.Checked)
+                    {
+                        //draw help
+                        if (board.IsValidMove(board.curPlayer, i, j))
+                            g.DrawEllipse(new Pen(board.curPlayer.color), x + w / 4 + pad + 1, y + h / 4 + pad + 1, w / 2 - pad * 2, h / 2 - pad * 2);
+                    }
                 }
             }
 
