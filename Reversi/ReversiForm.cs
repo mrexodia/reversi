@@ -62,7 +62,13 @@ namespace Reversi
 
                     //draw player
                     if (!board.fields[i, j].IsEmpty())
-                        g.FillEllipse(new SolidBrush(board.fields[i, j].owner.color), x + pad, y + pad, w - pad * 2, h - pad * 2);
+                    {
+                        if (board.fields[i, j].owner.color == Color.Red)
+                            g.DrawImage(Reversi.Properties.Resources.ImageEllipseRed, x, y, w, h);
+                        else
+                            g.DrawImage(Reversi.Properties.Resources.ImageEllipseBlue, x, y, w, h);
+                    }
+                        //g.FillEllipse(new SolidBrush(board.fields[i, j].owner.color), x + pad, y + pad, w - pad * 2, h - pad * 2);
 
                     if (checkBoxHelp.Checked)
                     {
