@@ -34,7 +34,7 @@ namespace Reversi
 
         void newGame()
         {
-            board = new Board(6, 6, new Player("Sonic", Color.Blue), new Player("Mario", Color.Red));
+            board = new Board(6, 6, new Player("Sonic", Color.Blue, Reversi.Properties.Resources.ImageEllipseBlue), new Player("Mario", Color.Red, Reversi.Properties.Resources.ImageEllipseRed));
             oldboard = null;
             displayOldBoard = false;
             gameOver = false;
@@ -62,13 +62,7 @@ namespace Reversi
 
                     //draw player
                     if (!board.fields[i, j].IsEmpty())
-                    {
-                        if (board.fields[i, j].owner.color == Color.Red)
-                            g.DrawImage(Reversi.Properties.Resources.ImageEllipseRed, x, y, w, h);
-                        else
-                            g.DrawImage(Reversi.Properties.Resources.ImageEllipseBlue, x, y, w, h);
-                    }
-                        //g.FillEllipse(new SolidBrush(board.fields[i, j].owner.color), x + pad, y + pad, w - pad * 2, h - pad * 2);
+                        g.DrawImage(board.fields[i, j].owner.image, x, y, w, h);
 
                     if (checkBoxHelp.Checked)
                     {

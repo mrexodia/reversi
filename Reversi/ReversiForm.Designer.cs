@@ -38,19 +38,17 @@
             // 
             // panelBoard
             // 
-            this.panelBoard.Location = new System.Drawing.Point(24, 23);
-            this.panelBoard.Margin = new System.Windows.Forms.Padding(6);
+            this.panelBoard.Location = new System.Drawing.Point(12, 12);
             this.panelBoard.Name = "panelBoard";
-            this.panelBoard.Size = new System.Drawing.Size(500, 481);
+            this.panelBoard.Size = new System.Drawing.Size(250, 250);
             this.panelBoard.TabIndex = 0;
             // 
             // checkBoxHelp
             // 
             this.checkBoxHelp.AutoSize = true;
-            this.checkBoxHelp.Location = new System.Drawing.Point(428, 515);
-            this.checkBoxHelp.Margin = new System.Windows.Forms.Padding(6);
+            this.checkBoxHelp.Location = new System.Drawing.Point(214, 268);
             this.checkBoxHelp.Name = "checkBoxHelp";
-            this.checkBoxHelp.Size = new System.Drawing.Size(88, 29);
+            this.checkBoxHelp.Size = new System.Drawing.Size(48, 17);
             this.checkBoxHelp.TabIndex = 1;
             this.checkBoxHelp.Text = "&Help";
             this.checkBoxHelp.UseVisualStyleBackColor = true;
@@ -59,20 +57,18 @@
             // labelPlayer1
             // 
             this.labelPlayer1.AutoSize = true;
-            this.labelPlayer1.Location = new System.Drawing.Point(24, 517);
-            this.labelPlayer1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.labelPlayer1.Location = new System.Drawing.Point(12, 269);
             this.labelPlayer1.Name = "labelPlayer1";
-            this.labelPlayer1.Size = new System.Drawing.Size(131, 25);
+            this.labelPlayer1.Size = new System.Drawing.Size(64, 13);
             this.labelPlayer1.TabIndex = 2;
             this.labelPlayer1.Text = "labelPlayer1";
             // 
             // labelPlayer2
             // 
             this.labelPlayer2.AutoSize = true;
-            this.labelPlayer2.Location = new System.Drawing.Point(24, 550);
-            this.labelPlayer2.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.labelPlayer2.Location = new System.Drawing.Point(12, 286);
             this.labelPlayer2.Name = "labelPlayer2";
-            this.labelPlayer2.Size = new System.Drawing.Size(131, 25);
+            this.labelPlayer2.Size = new System.Drawing.Size(64, 13);
             this.labelPlayer2.TabIndex = 3;
             this.labelPlayer2.Text = "labelPlayer2";
             // 
@@ -80,19 +76,17 @@
             // 
             this.labelGameStatus.AutoSize = true;
             this.labelGameStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelGameStatus.Location = new System.Drawing.Point(24, 583);
-            this.labelGameStatus.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.labelGameStatus.Location = new System.Drawing.Point(12, 303);
             this.labelGameStatus.Name = "labelGameStatus";
-            this.labelGameStatus.Size = new System.Drawing.Size(195, 26);
+            this.labelGameStatus.Size = new System.Drawing.Size(102, 13);
             this.labelGameStatus.TabIndex = 4;
             this.labelGameStatus.Text = "labelGameStatus";
             // 
             // buttonNew
             // 
-            this.buttonNew.Location = new System.Drawing.Point(428, 562);
-            this.buttonNew.Margin = new System.Windows.Forms.Padding(6);
+            this.buttonNew.Location = new System.Drawing.Point(214, 292);
             this.buttonNew.Name = "buttonNew";
-            this.buttonNew.Size = new System.Drawing.Size(94, 44);
+            this.buttonNew.Size = new System.Drawing.Size(47, 23);
             this.buttonNew.TabIndex = 5;
             this.buttonNew.Text = "&New";
             this.buttonNew.UseVisualStyleBackColor = true;
@@ -100,10 +94,9 @@
             // 
             // ReversiForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(546, 621);
+            this.ClientSize = new System.Drawing.Size(273, 323);
             this.Controls.Add(this.buttonNew);
             this.Controls.Add(this.labelGameStatus);
             this.Controls.Add(this.labelPlayer2);
@@ -111,7 +104,6 @@
             this.Controls.Add(this.checkBoxHelp);
             this.Controls.Add(this.panelBoard);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Margin = new System.Windows.Forms.Padding(6);
             this.MaximizeBox = false;
             this.Name = "ReversiForm";
             this.Text = "Reversi";

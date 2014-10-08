@@ -11,11 +11,13 @@ namespace Reversi
     {
         public string name { get; set; }
         public Color color { get; set; }
+        public Image image { get; set; }
 
-        public Player(string name, Color color)
+        public Player(string name, Color color, Image image)
         {
             this.name = name;
             this.color = color;
+            this.image = image;
         }
     }
 }
