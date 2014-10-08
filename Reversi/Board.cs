@@ -109,7 +109,7 @@ namespace Reversi
         }
 
         //a tile 'moved' to (x,y) from (?,?) => recolor fields
-        private void tileMoved(Player player, int x, int y)
+        private void fieldChanged(Player player, int x, int y)
         {
             for (int i = -1; i < 2; i++) //go over all directions
             {
@@ -176,7 +176,7 @@ namespace Reversi
 
             //handle the valid move
             fields[x, y] = new Field(curPlayer);
-            tileMoved(curPlayer, x, y);
+            fieldChanged(curPlayer, x, y);
             return switchPlayer();
         }
 
