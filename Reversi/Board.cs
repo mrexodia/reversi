@@ -2,7 +2,7 @@
 
 namespace Reversi
 {
-    class Board : ICloneable
+    public class Board : ICloneable
     {
         public int width { get; private set; }
         public int height { get; private set; }

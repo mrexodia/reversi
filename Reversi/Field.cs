@@ -1,6 +1,6 @@
 ﻿namespace Reversi
 {
-    class Field
+    public class Field
     {
         //owner == null means empty field
         public Player owner { get; private set; }

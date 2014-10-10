@@ -2,7 +2,7 @@
 
 namespace Reversi
 {
-    class Player
+    public class Player
     {
         public string name { get; set; }
         public Color color { get; set; }
