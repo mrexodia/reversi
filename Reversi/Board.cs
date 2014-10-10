@@ -7,8 +7,8 @@ namespace Reversi
         public int width { get; private set; }
         public int height { get; private set; }
         public Field[,] fields { get; private set; }
-        public Player player1 { get; set; }
-        public Player player2 { get; set; }
+        public Player player1 { get; private set; }
+        public Player player2 { get; private set; }
         public Player curPlayer { get; private set; }
 
         public enum ClickStatus
@@ -35,19 +35,19 @@ namespace Reversi
             curPlayer = player1; //player1 begins
 
             //initialize empty fields
-            for (int i = 0; i < width; i++)
+            for (int x = 0; x < width; x++)
             {
-                for (int j = 0; j < height; j++)
-                    fields[i, j] = new Field();
+                for (int y = 0; y < height; y++)
+                    fields[x, y] = new Field();
             }
 
             //initialize starting position
-            int x = width / 2;
-            int y = height / 2;
-            fields[x, y] = new Field(player1);
-            fields[x - 1, y - 1] = new Field(player1);
-            fields[x - 1, y] = new Field(player2);
-            fields[x, y - 1] = new Field(player2);
+            int midX = width / 2;
+            int midY = height / 2;
+            fields[midX, midY] = new Field(player1);
+            fields[midX - 1, midY - 1] = new Field(player1);
+            fields[midX - 1, midY] = new Field(player2);
+            fields[midX, midY - 1] = new Field(player2);
         }
 
         //returns the other player
@@ -59,11 +59,11 @@ namespace Reversi
         //returns if player can make a valid move
         private bool isMovePossible(Player player)
         {
-            for (int i = 0; i < width; i++)
+            for (int x = 0; x < width; x++)
             {
-                for (int j = 0; j < height; j++)
+                for (int y = 0; y < height; y++)
                 {
-                    if (IsValidMove(player, i, j))
+                    if (IsValidMove(player, x, y))
                         return true;
                 }
             }
@@ -107,12 +107,12 @@ namespace Reversi
         //a tile 'moved' to (x,y) from (?,?) => recolor fields
         private void fieldChanged(Player player, int x, int y)
         {
-            for (int i = -1; i < 2; i++) //go over all directions
+            for (int dx = -1; dx < 2; dx++) //go over all directions
             {
-                for (int j = -1; j < 2; j++)
+                for (int dy = -1; dy < 2; dy++)
                 {
                     //own fields while there is a field of ours in the current direction
-                    for (int xi = x, yi = y, dx = i, dy = j; isFieldAt(player, xi, yi, dx, dy); xi += dx, yi += dy)
+                    for (int xi = x, yi = y; isFieldAt(player, xi, yi, dx, dy); xi += dx, yi += dy)
                         fields[xi, yi] = new Field(player);
                 }
             }
@@ -144,16 +144,16 @@ namespace Reversi
             if (!fields[x, y].IsEmpty())
                 return false;
 
-            for (int i = -1; i < 2; i++) //go over all directions
+            for (int dx = -1; dx < 2; dx++) //go over all directions
             {
-                for (int j = -1; j < 2; j++)
+                for (int dy = -1; dy < 2; dy++)
                 {
-                    int k = 1;
-                    while (isOwnedByPlayer(otherPlayer(player), x + i * k, y + j * k))
-                        k++;
-                    if (k == 1) //skip if the first field in the current direction is not owned by the other player
+                    int i = 1;
+                    while (isOwnedByPlayer(otherPlayer(player), x + dx * i, y + dy * i))
+                        i++;
+                    if (i == 1) //skip if the first field in the current direction is not owned by the other player
                         continue;
-                    if (isOwnedByPlayer(player, x + i * k, y + j * k))
+                    if (isOwnedByPlayer(player, x + dx * i, y + dy * i))
                         return true;
                 }
             }
@@ -180,11 +180,11 @@ namespace Reversi
         public int GetPlayerScore(Player player)
         {
             int score = 0;
-            for (int i = 0; i < width; i++)
+            for (int x = 0; x < width; x++)
             {
-                for (int j = 0; j < height; j++)
+                for (int y = 0; y < height; y++)
                 {
-                    if (isOwnedByPlayer(player, i, j))
+                    if (isOwnedByPlayer(player, x, y))
                         score++;
                 }
             }

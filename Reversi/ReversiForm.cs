@@ -41,30 +41,30 @@ namespace Reversi
         {
             Bitmap bitmap = new Bitmap(panelBoard.Width, panelBoard.Height);
             Graphics g = Graphics.FromImage(bitmap);
-            int w = (panelBoard.Width - 1) / b.width;
-            int h = (panelBoard.Height - 1) / b.height;
+            int drawWidth = (panelBoard.Width - 1) / b.width;
+            int drawHeight = (panelBoard.Height - 1) / b.height;
             const int pad = 3;
 
-            for (int i = 0; i < b.width; i++)
+            for (int boardX = 0; boardX < b.width; boardX++)
             {
-                for (int j = 0; j < b.height; j++)
+                for (int boardY = 0; boardY < b.height; boardY++)
                 {
-                    int x = i * w;
-                    int y = j * h;
+                    int drawX = boardX * drawWidth;
+                    int drawY = boardY * drawHeight;
 
                     //draw grid
-                    g.DrawRectangle(Pens.Black, x, y, w, h);
+                    g.DrawRectangle(Pens.Black, drawX, drawY, drawWidth, drawHeight);
 
                     //draw player
-                    if (!b.fields[i, j].IsEmpty())
-                        g.DrawImage(b.fields[i, j].owner.image, x, y, w, h);
+                    if (!b.fields[boardX, boardY].IsEmpty())
+                        g.DrawImage(b.fields[boardX, boardY].owner.image, drawX, drawY, drawWidth, drawHeight);
 
                     if (checkBoxHelp.Checked)
                     {
                         //draw help
-                        if (b.IsValidMove(b.curPlayer, i, j))
-                            g.DrawEllipse(new Pen(b.curPlayer.color), x + w / 4 + pad + 1, y + h / 4 + pad + 1, w / 2 - pad * 2,
-                                h / 2 - pad * 2);
+                        if (b.IsValidMove(b.curPlayer, boardX, boardY))
+                            g.DrawEllipse(new Pen(b.curPlayer.color), drawX + drawWidth / 4 + pad + 1, drawY + drawHeight / 4 + pad + 1, drawWidth / 2 - pad * 2,
+                                drawHeight / 2 - pad * 2);
                     }
                 }
             }
