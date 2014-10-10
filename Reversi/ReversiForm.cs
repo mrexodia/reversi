@@ -157,17 +157,19 @@ namespace Reversi
                 {
                     case Board.ClickStatus.ValidMove:
                         oldboard = old;
+                        checkBoxHelp.Checked = false; //help is only for the current turn
+                        redraw();
                         break;
 
                     case Board.ClickStatus.GameOver:
                         gameOver = true;
                         oldboard = old;
+                        redraw();
                         break;
 
                     default:
                         break;
                 }
-                redraw();
             }
         }
 
