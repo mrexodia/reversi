@@ -17,6 +17,8 @@ namespace Reversi
             InitializeComponent();
 
             //start new game
+            board = new Board(6, 6, new Player("Sonic", Color.Blue, Properties.Resources.ImageEllipseBlue),
+                new Player("Mario", Color.Red, Properties.Resources.ImageEllipseRed));
             newGame();
 
             //register events
@@ -28,11 +30,15 @@ namespace Reversi
 
         private void newGame()
         {
-            board = new Board(6, 6, new Player("Sonic", Color.Blue, Properties.Resources.ImageEllipseBlue),
-                new Player("Mario", Color.Red, Properties.Resources.ImageEllipseRed));
-            oldboard = null;
-            displayOldBoard = false;
-            gameOver = false;
+            NewGameForm form = new NewGameForm(board);
+            form.ShowDialog(this);
+            if (form.board != null)
+            {
+                board = form.board;
+                oldboard = null;
+                displayOldBoard = false;
+                gameOver = false;
+            }
             updateScores(board);
             redraw();
         }
