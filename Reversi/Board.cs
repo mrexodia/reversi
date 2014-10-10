@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Drawing;
 
 namespace Reversi
 {
@@ -34,25 +29,25 @@ namespace Reversi
             //initialize properties
             this.width = width;
             this.height = height;
-            this.fields = new Field[width, height];
+            fields = new Field[width, height];
             this.player1 = player1;
             this.player2 = player2;
-            this.curPlayer = player1; //player1 begins
+            curPlayer = player1; //player1 begins
 
             //initialize empty fields
             for (int i = 0; i < width; i++)
             {
                 for (int j = 0; j < height; j++)
-                    this.fields[i, j] = new Field();
+                    fields[i, j] = new Field();
             }
 
             //initialize starting position
             int x = width / 2;
             int y = height / 2;
-            this.fields[x, y] = new Field(player1);
-            this.fields[x - 1, y - 1] = new Field(player1);
-            this.fields[x - 1, y] = new Field(player2);
-            this.fields[x, y - 1] = new Field(player2);
+            fields[x, y] = new Field(player1);
+            fields[x - 1, y - 1] = new Field(player1);
+            fields[x - 1, y] = new Field(player2);
+            fields[x, y - 1] = new Field(player2);
         }
 
         //returns the other player
@@ -125,14 +120,14 @@ namespace Reversi
         //purely to satisfy the ICloneable interface
         object ICloneable.Clone()
         {
-            return this.Clone();
+            return Clone();
         }
 
         //provides a clone functionality
         public Board Clone()
         {
-            Board retBoard = (Board)this.MemberwiseClone();
-            retBoard.fields = (Field[,])this.fields.Clone();
+            Board retBoard = (Board)MemberwiseClone();
+            retBoard.fields = (Field[,])fields.Clone();
             return retBoard;
         }
 

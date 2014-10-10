@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Reversi
@@ -34,7 +28,7 @@ namespace Reversi
 
         void newGame()
         {
-            board = new Board(6, 6, new Player("Sonic", Color.Blue, Reversi.Properties.Resources.ImageEllipseBlue), new Player("Mario", Color.Red, Reversi.Properties.Resources.ImageEllipseRed));
+            board = new Board(6, 6, new Player("Sonic", Color.Blue, Properties.Resources.ImageEllipseBlue), new Player("Mario", Color.Red, Properties.Resources.ImageEllipseRed));
             oldboard = null;
             displayOldBoard = false;
             gameOver = false;
@@ -42,17 +36,17 @@ namespace Reversi
             redraw();
         }
 
-        Bitmap drawBoard(Board board)
+        Bitmap drawBoard(Board b)
         {
             Bitmap bitmap = new Bitmap(panelBoard.Width, panelBoard.Height);
             Graphics g = Graphics.FromImage(bitmap);
-            int w = (panelBoard.Width - 1) / board.width;
-            int h = (panelBoard.Height - 1) / board.height;
+            int w = (panelBoard.Width - 1) / b.width;
+            int h = (panelBoard.Height - 1) / b.height;
             const int pad = 3;
 
-            for (int i = 0; i < board.width; i++)
+            for (int i = 0; i < b.width; i++)
             {
-                for (int j = 0; j < board.height; j++)
+                for (int j = 0; j < b.height; j++)
                 {
                     int x = i * w;
                     int y = j * h;
@@ -61,14 +55,14 @@ namespace Reversi
                     g.DrawRectangle(Pens.Black, x, y, w, h);
 
                     //draw player
-                    if (!board.fields[i, j].IsEmpty())
-                        g.DrawImage(board.fields[i, j].owner.image, x, y, w, h);
+                    if (!b.fields[i, j].IsEmpty())
+                        g.DrawImage(b.fields[i, j].owner.image, x, y, w, h);
 
                     if (checkBoxHelp.Checked)
                     {
                         //draw help
-                        if (board.IsValidMove(board.curPlayer, i, j))
-                            g.DrawEllipse(new Pen(board.curPlayer.color), x + w / 4 + pad + 1, y + h / 4 + pad + 1, w / 2 - pad * 2, h / 2 - pad * 2);
+                        if (b.IsValidMove(b.curPlayer, i, j))
+                            g.DrawEllipse(new Pen(b.curPlayer.color), x + w / 4 + pad + 1, y + h / 4 + pad + 1, w / 2 - pad * 2, h / 2 - pad * 2);
                     }
                 }
             }
@@ -76,26 +70,26 @@ namespace Reversi
             return bitmap;
         }
 
-        void updateScores(Board board)
+        void updateScores(Board b)
         {
-            labelPlayer1.Text = String.Format("{0}: {1}", board.player1.name, board.GetPlayerScore(board.player1));
-            labelPlayer1.ForeColor = board.player1.color;
-            labelPlayer2.Text = String.Format("{0}: {1}", board.player2.name, board.GetPlayerScore(board.player2));
-            labelPlayer2.ForeColor = board.player2.color;
+            labelPlayer1.Text = String.Format("{0}: {1}", b.player1.name, b.GetPlayerScore(b.player1));
+            labelPlayer1.ForeColor = b.player1.color;
+            labelPlayer2.Text = String.Format("{0}: {1}", b.player2.name, b.GetPlayerScore(b.player2));
+            labelPlayer2.ForeColor = b.player2.color;
 
             if (gameOver)
             {
-                int score1 = board.GetPlayerScore(board.player1);
-                int score2 = board.GetPlayerScore(board.player2);
+                int score1 = b.GetPlayerScore(b.player1);
+                int score2 = b.GetPlayerScore(b.player2);
                 if (score1 > score2) //player1 wins
                 {
-                    labelGameStatus.Text = String.Format("{0} won!", board.player1.name);
-                    labelGameStatus.ForeColor = board.player1.color;
+                    labelGameStatus.Text = String.Format("{0} won!", b.player1.name);
+                    labelGameStatus.ForeColor = b.player1.color;
                 }
                 else if (score2 > score1) //player2 wins
                 {
-                    labelGameStatus.Text = String.Format("{0} won!", board.player2.name);
-                    labelGameStatus.ForeColor = board.player2.color;
+                    labelGameStatus.Text = String.Format("{0} won!", b.player2.name);
+                    labelGameStatus.ForeColor = b.player2.color;
                 }
                 else //draw
                 {
@@ -105,8 +99,8 @@ namespace Reversi
             }
             else
             {
-                labelGameStatus.Text = String.Format("It is {0}'s turn.", board.curPlayer.name);
-                labelGameStatus.ForeColor = board.curPlayer.color;
+                labelGameStatus.Text = String.Format("It is {0}'s turn.", b.curPlayer.name);
+                labelGameStatus.ForeColor = b.curPlayer.color;
             }
         }
 
@@ -165,9 +159,6 @@ namespace Reversi
                         gameOver = true;
                         oldboard = old;
                         redraw();
-                        break;
-
-                    default:
                         break;
                 }
             }
