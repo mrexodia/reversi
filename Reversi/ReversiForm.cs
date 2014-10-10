@@ -6,11 +6,11 @@ namespace Reversi
 {
     public partial class ReversiForm : Form
     {
-        Board board;
-        Board oldboard;
-        Bitmap boardImage;
-        bool displayOldBoard;
-        bool gameOver;
+        private Board board;
+        private Board oldboard;
+        private Bitmap boardImage;
+        private bool displayOldBoard;
+        private bool gameOver;
 
         public ReversiForm()
         {
@@ -26,9 +26,10 @@ namespace Reversi
             panelBoard.MouseUp += panelBoard_MouseUp;
         }
 
-        void newGame()
+        private void newGame()
         {
-            board = new Board(6, 6, new Player("Sonic", Color.Blue, Properties.Resources.ImageEllipseBlue), new Player("Mario", Color.Red, Properties.Resources.ImageEllipseRed));
+            board = new Board(6, 6, new Player("Sonic", Color.Blue, Properties.Resources.ImageEllipseBlue),
+                new Player("Mario", Color.Red, Properties.Resources.ImageEllipseRed));
             oldboard = null;
             displayOldBoard = false;
             gameOver = false;
@@ -36,7 +37,7 @@ namespace Reversi
             redraw();
         }
 
-        Bitmap drawBoard(Board b)
+        private Bitmap drawBoard(Board b)
         {
             Bitmap bitmap = new Bitmap(panelBoard.Width, panelBoard.Height);
             Graphics g = Graphics.FromImage(bitmap);
@@ -62,7 +63,8 @@ namespace Reversi
                     {
                         //draw help
                         if (b.IsValidMove(b.curPlayer, i, j))
-                            g.DrawEllipse(new Pen(b.curPlayer.color), x + w / 4 + pad + 1, y + h / 4 + pad + 1, w / 2 - pad * 2, h / 2 - pad * 2);
+                            g.DrawEllipse(new Pen(b.curPlayer.color), x + w / 4 + pad + 1, y + h / 4 + pad + 1, w / 2 - pad * 2,
+                                h / 2 - pad * 2);
                     }
                 }
             }
@@ -70,7 +72,7 @@ namespace Reversi
             return bitmap;
         }
 
-        void updateScores(Board b)
+        private void updateScores(Board b)
         {
             labelPlayer1.Text = String.Format("{0}: {1}", b.player1.name, b.GetPlayerScore(b.player1));
             labelPlayer1.ForeColor = b.player1.color;
@@ -104,7 +106,7 @@ namespace Reversi
             }
         }
 
-        void redraw()
+        private void redraw()
         {
             if (displayOldBoard && oldboard != null)
             {
@@ -122,7 +124,7 @@ namespace Reversi
             panelBoard.Invalidate();
         }
 
-        void panelBoard_MouseUp(object sender, MouseEventArgs e)
+        private void panelBoard_MouseUp(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right)
             {
@@ -131,7 +133,7 @@ namespace Reversi
             }
         }
 
-        void panelBoard_MouseDown(object sender, MouseEventArgs e)
+        private void panelBoard_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right)
             {
@@ -140,7 +142,7 @@ namespace Reversi
             }
         }
 
-        void panelBoard_MouseClick(object sender, MouseEventArgs e)
+        private void panelBoard_MouseClick(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
             {
@@ -164,7 +166,7 @@ namespace Reversi
             }
         }
 
-        void pictureBoxBoard_Paint(object sender, PaintEventArgs e)
+        private void pictureBoxBoard_Paint(object sender, PaintEventArgs e)
         {
             e.Graphics.DrawImage(boardImage, 0, 0);
         }
