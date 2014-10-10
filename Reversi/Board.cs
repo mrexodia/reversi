@@ -71,14 +71,15 @@ namespace Reversi
         }
 
         //switch to the other player
-        private ClickStatus switchPlayer(int count = 0)
+        private ClickStatus switchPlayer()
         {
-            if (count == 2)
-                return ClickStatus.GameOver;
-            curPlayer = otherPlayer(curPlayer);
-            if (!isMovePossible(curPlayer))
-                return switchPlayer(count + 1);
-            return ClickStatus.ValidMove;
+            for (int i = 0; i < 2; i++) //try to switch players at most twice
+            {
+                curPlayer = otherPlayer(curPlayer);
+                if (isMovePossible(curPlayer))
+                    return ClickStatus.ValidMove;
+            }
+            return ClickStatus.GameOver;
         }
 
         //returns if a field is owned by a player
